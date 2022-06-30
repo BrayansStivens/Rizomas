@@ -1,0 +1,15 @@
+<rizo-navbar
+  [btnLogin]="false"
+  [btnStart]="false"
+  [btnLogOut]="true"
+  [tittle]="'ADMINISTRADOR'"
+></rizo-navbar>
+<mat-tab-group mat-align-tabs="center" animationDuration="1500ms">
+  <mat-tab label="Usuarios">
+    <rizo-usuarios></rizo-usuarios>
+  </mat-tab>
+  <mat-tab label="Grupos"><rizo-grupos></rizo-grupos></mat-tab>
+  <mat-tab label="Contenido">
+    <rizo-contenido></rizo-contenido>
+  </mat-tab>
+</mat-tab-group>

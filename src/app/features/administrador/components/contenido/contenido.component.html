@@ -1,0 +1,93 @@
+<rizo-loader [loader]="loader"></rizo-loader>
+
+<div class="container mt-5">
+  <h2 class="fw-bold text-center">MANEJO DE CONTENIDOS</h2>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-12 col-lg-4 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Nombre"
+            formControlName="nombreContenido"
+          />
+          <mat-error>Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-4 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            placeholder="Descripción"
+            formControlName="descripcion"
+          ></textarea>
+          <mat-error>Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-4 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="estado"
+            ><mat-option>Activo</mat-option></mat-select
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Mapa</mat-label>
+          <mat-select formControlName="idMapa"
+            ><mat-option>Mapa</mat-option></mat-select
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-4 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Tipo contenido </mat-label>
+          <mat-select formControlName="idTipoContenido"
+            ><mat-option>Video</mat-option></mat-select
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-4 text-center mt-3">
+        <button
+          type="button"
+          mat-raised-button
+          color="accent"
+          (click)="fileInput.click()"
+        >
+          Seleccionar archivo
+        </button>
+        <input hidden #fileInput type="file" id="file" />
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex mt-5 mb-5">
+    <button
+      class="btn me-5 ms-3"
+      mat-flat-button
+      color="primary"
+      [textContent]="'Registar'"
+    ></button>
+
+    <button
+      class="btn"
+      mat-stroked-button
+      color="primary"
+      [textContent]="'Buscar'"
+    ></button>
+  </div>
+
+  <div class="mb-3">
+    <rizo-table
+      [columnHeader]="columnHeader"
+      [data]="dataSourse"
+      [paginationType]="paginationType"
+    ></rizo-table>
+  </div>
+</div>
