@@ -31,8 +31,11 @@
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Estado</mat-label>
           <mat-select formControlName="estado"
-            ><mat-option>Activo</mat-option></mat-select
+            ><mat-option *ngFor="let state of states" [value]="state.value">{{
+              state.name
+            }}</mat-option></mat-select
           >
+          <mat-error>Campo requerido</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -41,16 +44,24 @@
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Mapa</mat-label>
           <mat-select formControlName="idMapa"
-            ><mat-option>Mapa</mat-option></mat-select
+            ><mat-option *ngFor="let map of maps" [value]="map.value">{{
+              map.name
+            }}</mat-option></mat-select
           >
+          <mat-error>Campo requerido</mat-error>
         </mat-form-field>
       </div>
       <div class="col-12 col-lg-4 text-center">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Tipo contenido </mat-label>
           <mat-select formControlName="idTipoContenido"
-            ><mat-option>Video</mat-option></mat-select
+            ><mat-option
+              *ngFor="let type of typeContents"
+              [value]="type.value"
+              >{{ type.name }}</mat-option
+            ></mat-select
           >
+          <mat-error>Campo requerido</mat-error>
         </mat-form-field>
       </div>
       <div class="col-12 col-lg-4 text-center mt-3">
@@ -62,7 +73,16 @@
         >
           Seleccionar archivo
         </button>
-        <input hidden #fileInput type="file" id="file" />
+        <input
+          required
+          hidden
+          #fileInput
+          type="file"
+          id="file"
+          accept=".txt, .mp3, .mp4, .wav, .opus"
+          formControlName="archivo"
+        />
+        <mat-error>{{ errorFile() }}</mat-error>
       </div>
     </div>
   </form>

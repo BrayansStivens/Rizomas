@@ -49,7 +49,8 @@
         >
           Seleccionar archivo
         </button>
-        <input hidden #fileInput type="file" id="file" />
+        <input hidden #fileInput type="file" id="file" formControlName="file" accept=".xlsx" />
+        <mat-error>{{errorFile()}}</mat-error>
       </div>
     </div>
   </form>

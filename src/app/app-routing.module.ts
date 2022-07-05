@@ -20,6 +20,11 @@ const routes: Routes = [
       import('./features/mapas/mapas.module').then((m) => m.MapasModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'invitados',
+    loadChildren: () =>
+      import('./features/mapas/mapas.module').then((m) => m.MapasModule),
+  },
 ];
 
 @NgModule({

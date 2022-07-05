@@ -23,8 +23,8 @@ export class UsuariosComponent implements OnInit {
   form!: FormGroup;
   mensajeError!: string;
   mensajeBoton!: string;
-  archivo!: Array<any>;
-  archivoRuta!: string;
+  archivoExcel!: Array<any>;
+  /* archivoRuta!: string; */
 
   roles: Array<Role> = [
     { role: 'Administrador', value: 'administrador' },
@@ -68,7 +68,7 @@ export class UsuariosComponent implements OnInit {
         ],
       ],
       role: [''],
-      file: [''],
+      file: ['',Validators.pattern('^.*\.(.xlsx)$')],
     });
   }
 
@@ -87,7 +87,7 @@ export class UsuariosComponent implements OnInit {
   createUser(): void {
     this.loader = true;
     if (this.form.get('file')?.value) {
-      this.loader = false;
+      this.subirArchivo()
     } else if (this.form.valid) {
       const { email, password } = this.form.value;
       const payload = {
@@ -158,8 +158,22 @@ export class UsuariosComponent implements OnInit {
   }
 
   cargarArchivo(event: any) {
-    const archivo = event.target.files[0];
-    console.log(archivo);
+    this.archivoExcel = event.target.files[0];
+    console.log(this.archivoExcel);
+  }
+
+  subirArchivo(){
+    this.usuariosService.createByFile({archivo: this.archivoExcel}).subscribe(()=>{
+      this.loader=false;
+      this.alertService.mensajeCorrecto(
+              'REGISTRO EXITOSO',
+              'Usuarios creados con exito 😇 ')
+    },()=>{
+      this.loader=false;
+      this.alertService.mensajeError(
+        "REGISTRO NO CREADO",
+        "Ocurrio un error inesperado, vuelve a intentarlo 😢")  
+    })
   }
 
   //Control de mensajes HTML
@@ -190,6 +204,16 @@ export class UsuariosComponent implements OnInit {
       this.mensajeError = 'Campo requerido';
     }
 
+    return this.mensajeError;
+  }
+
+  errorFile():string{
+    this.mensajeError = '';
+    if(this.form.get('file')?.value){
+      if(this.form.get('file')?.hasError('pattern')){
+        this.mensajeError = 'Sólo archivos XLSX'
+      }
+    }
     return this.mensajeError;
   }
 

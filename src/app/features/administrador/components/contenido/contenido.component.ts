@@ -11,10 +11,15 @@ import { AlertsService } from 'src/app/shared/services/services/alert.service';
 })
 export class ContenidoComponent implements OnInit {
 
-   loader!: boolean;
+  loader!: boolean;
   dataSourse = new MatTableDataSource<any>;
   paginationType = PaginationType.CLIENT;
   form!: FormGroup;
+  mensajeError!:string;
+
+  maps: Array<any> = [{name:"Árbol", value: "arbol"}, {name:"Mujeres", value: "mujeres"}];
+  typeContents: Array<any> = [{name:"Vídeo", value: "video"}, {name:"Audio", value: "audio"}, {name:"Texto", value: "text"}];
+  states: Array<any> = [{name:"Activo", value:"activo"}, {name:"Desactivo", value:"desactivo"}]
 
   
   columnHeader = {
@@ -22,7 +27,7 @@ export class ContenidoComponent implements OnInit {
     estado: { label: 'Estado' },
     idMapa: { label: 'Mapa' },
     idTipoContenido:  {label: 'Tipo contenido'},
-    action: {label: "Acciones", type: CellType.ACTIONS}
+    actions: {label: "Acciones", type: CellType.ACTIONS}
   };
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertsService){
@@ -40,7 +45,21 @@ export class ContenidoComponent implements OnInit {
       estado: ['', Validators.required],
       idMapa: ['', Validators.required],
       idTipoContenido:['' , Validators.required],
-      archivo: ['', Validators.required]
+      archivo: ['', [Validators.required, Validators.pattern('^.*\.(.mp3|.wav|.mp4|.opus|.txt)$')]]
     });
+  }
+
+  errorFile(): string{
+    this.mensajeError="";
+    if(this.form.get('archivo')?.hasError('required')){
+      this.mensajeError = "Campo requerido"
+    }else  if (
+      this.form.get('archivo')?.hasError('pattern') &&
+      !this.form.get('archivo')?.hasError('required')
+    ){
+      this.mensajeError = "MP3, MP4M TXT, WAV, OPUS"
+    }
+
+    return this.mensajeError;
   }
 }

@@ -14,6 +14,7 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {}
 
   arbol() {
-    this.router.navigateByUrl('/arbol/invitados');
+    this.router.navigateByUrl('invitados');
+    console.log('si');
   }
 }
