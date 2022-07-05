@@ -31,11 +31,15 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(): void {
-    this.loginService.logout();
-    this.router.navigateByUrl('');
+    if (this.loginService.getToken()) {
+      this.loginService.logout();
+      this.router.navigateByUrl('');
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 
   arbol(): void {
-    this.router.navigateByUrl('/arbol/invitados');
+    this.router.navigateByUrl('invitados');
   }
 }
