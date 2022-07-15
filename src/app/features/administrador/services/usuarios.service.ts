@@ -39,6 +39,6 @@ export class UsuariosService {
   }
 
   createByFile(payload: any): Observable<any> {
-    return this.webRequest.post('api/Excel', payload);
+    return this.webRequest.postWithHeaders('api/Excel', payload);
   }
 }

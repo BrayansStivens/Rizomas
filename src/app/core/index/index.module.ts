@@ -6,6 +6,7 @@ import { LoginModalComponent } from 'src/app/core/index/modals/login-modal/login
 import { LogoComponent } from './components/logo/logo.component';
 import { PlantaComponent } from './components/planta/planta.component';
 import { AudioModalComponent } from './modals/audio-modal/audio-modal.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AudioModalComponent } from './modals/audio-modal/audio-modal.component'
     LogoComponent,
     PlantaComponent,
     AudioModalComponent,
+    NotFoundComponent,
   ],
   imports: [CommonModule, SharedModule],
 })

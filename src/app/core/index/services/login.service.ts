@@ -54,8 +54,8 @@ export class LoginService {
     localStorage.removeItem(this.keyExpirationToken);
   }
 
-  obtenerRol(): string {
-    return this.obtenerCampoJWT(this.role);
+  obtenerRol(role: string): string {
+    return this.obtenerCampoJWT(role);
   }
 
   obtenerCampoJWT(campo: string): string {

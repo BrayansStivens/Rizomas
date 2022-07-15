@@ -39,6 +39,7 @@ export class TableComponent implements OnInit {
   @Input() clickedRows: Array<any> = [];
   @Output() actionEvent = new EventEmitter<any>();
   @Output() selected = new EventEmitter<any[]>();
+  @Output() sortData = new EventEmitter<any>();
   @Output() pageSizeChange = new EventEmitter<number>();
   selection!: any;
   selectionStrategy = SelectionStrategy;

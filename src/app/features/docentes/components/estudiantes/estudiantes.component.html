@@ -1,0 +1,72 @@
+<rizo-loader [loader]="loader"></rizo-loader>
+
+<div class="container mt-5">
+  <h2 class="fw-bold text-center">MANEJO DE ESTUDIANTES</h2>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-12 col-lg-6 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error>{{ errorEmail() }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-6 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Contraseña"
+            formControlName="password"
+          />
+          <mat-error>{{ errorPassword() }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <button
+          type="button"
+          mat-raised-button
+          color="accent"
+          (click)="fileInput.click()"
+        >
+          Seleccionar archivo
+        </button>
+        <input hidden #fileInput type="file" id="file" formControlName="file" accept=".xlsx" />
+        <mat-error>{{errorFile()}}</mat-error>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex mt-5 mb-5">
+    <button
+      class="btn me-5 ms-3"
+      mat-flat-button
+      color="primary"
+      [textContent]="'Registar'"
+      (click)="createStudent()"
+    ></button>
+
+    <button
+      class="btn"
+      mat-stroked-button
+      color="primary"
+      [textContent]="'Buscar'"
+    ></button>
+  </div>
+
+  <div class="mb-3">
+    <rizo-table
+      [columnHeader]="columnHeader"
+      [data]="dataSourse"
+      [paginationType]="paginationType"
+    ></rizo-table>
+  </div>
+</div>

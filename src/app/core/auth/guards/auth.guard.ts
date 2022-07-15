@@ -7,13 +7,18 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AlertsService } from 'src/app/shared/services/services/alert.service';
 import { LoginService } from '../../index/services/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private alertService: AlertsService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,6 +31,29 @@ export class AuthGuard implements CanActivate {
     if (!this.loginService.isLogIn()) {
       this.router.navigate(['']).then(() => false);
     }
-    return true;
+    return this.checkUserLogin(route);
+  }
+
+  checkUserLogin(route: ActivatedRouteSnapshot): boolean {
+    let role;
+    if (this.loginService.obtenerRol('EsAdmin')) {
+      role = 'admin';
+    } else if (this.loginService.obtenerRol('EsDocente')) {
+      role = 'docente';
+    } else if (this.loginService.obtenerRol('EsEstudiante')) {
+      role = 'estudiante';
+    }
+
+    if (role?.includes(route.data['role'])) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      this.loginService.logout();
+      this.alertService.mensajeError(
+        'Ups',
+        'No tienes permisos para entrar 🤨'
+      );
+      return false;
+    }
   }
 }

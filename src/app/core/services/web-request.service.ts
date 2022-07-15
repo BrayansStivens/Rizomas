@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Constants } from '../API/environment.interface';
@@ -18,6 +18,24 @@ export class WebRequestService {
   post(url: string, payload: any, params?: any): Observable<any> {
     return this.http.post<any>(`${Constants.ROOT_URL}/${url}`, payload, {
       params: params,
+    });
+  }
+
+  getWithHeaders(url: string, params?: any): Observable<any> {
+    return this.http.get<any>(`${Constants.ROOT_URL}/${url}`, {
+      params: params,
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    });
+  }
+
+  postWithHeaders(url: string, payload: any, params?: any): Observable<any> {
+    return this.http.post<any>(`${Constants.ROOT_URL}/${url}`, payload, {
+      params: params,
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
     });
   }
 
@@ -47,9 +65,27 @@ export class WebRequestService {
     });
   }
 
+  putWithHeaders(url: string, payload: any, params?: any): Observable<any> {
+    return this.http.put<any>(`${Constants.ROOT_URL}/${url}`, payload, {
+      params: params,
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    });
+  }
+
   delete(url: string, params?: any): Observable<any> {
     return this.http.delete<any>(`${Constants.ROOT_URL}/${url}`, {
       params: params,
+    });
+  }
+
+  deleteWithHeaders(url: string, params?: any): Observable<any> {
+    return this.http.delete<any>(`${Constants.ROOT_URL}/${url}`, {
+      params: params,
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
     });
   }
 }

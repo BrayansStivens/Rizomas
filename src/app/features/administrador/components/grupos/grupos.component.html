@@ -3,7 +3,7 @@
   <h2 class="fw-bold text-center">MANEJO DE GRUPOS</h2>
   <form [formGroup]="form" class="mt-5">
     <div class="row">
-      <div class="col-12 col-lg-6 text-center">
+      <div class="col-12 col-lg-3 text-center">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Nombre del grupo</mat-label>
           <input
@@ -15,7 +15,7 @@
           <mat-error>Campo requerido</mat-error>
         </mat-form-field>
       </div>
-      <div class="col-12 col-lg-6 text-center">
+      <div class="col-12 col-lg-3 text-center">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Nombre de la asignatura</mat-label>
           <input
@@ -27,30 +27,60 @@
           <mat-error>Campo requerido</mat-error>
         </mat-form-field>
       </div>
+      <div class="col-12 col-lg-3 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Docente</mat-label>
+          <mat-select><mat-option>Docente genérico</mat-option></mat-select>
+          <mat-error>Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-3 text-center">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Semestre</mat-label>
+          <mat-select><mat-option>Semestre genérico</mat-option></mat-select>
+          <mat-error>Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
     </div>
   </form>
 
-  <div class="d-flex mt-5 mb-5">
-    <button
-      class="btn me-5 ms-3"
-      mat-flat-button
-      color="primary"
-      [textContent]="'Registar'"
-    ></button>
-
-    <button
-      class="btn"
-      mat-stroked-button
-      color="primary"
-      [textContent]="'Buscar'"
-    ></button>
+  <div class="row">
+    <div
+      class="col-12 col-lg-6 d-flex justify-content-between justify-content-lg-start"
+    >
+      <button
+        class="btn m-4"
+        mat-flat-button
+        color="primary"
+        [textContent]="isUpdate ? 'Actualizar' : 'Registar'"
+        (click)="updateOrDelete()"
+      ></button>
+      <button
+        class="btn m-4"
+        mat-stroked-button
+        color="primary"
+        [textContent]="'Buscar'"
+      ></button>
+    </div>
+    <div class="col-12 col-lg-6 d-flex justify-content-end">
+      <button
+        class="m-4"
+        mat-flat-button
+        color="accent"
+        [textContent]="'Limpiar'"
+        (click)="limpiar()"
+      ></button>
+    </div>
   </div>
 
   <div class="mb-3">
     <rizo-table
+      [selectStrategy]="selectStrategy"
       [columnHeader]="columnHeader"
       [data]="dataSourse"
       [paginationType]="paginationType"
+      (actionEvent)="actionEvent($event)"
+      (sortData)="sortData($event)"
     ></rizo-table>
   </div>
 </div>

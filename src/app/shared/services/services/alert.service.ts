@@ -52,7 +52,7 @@ export class AlertsService {
       text: mensaje,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#58aa21',
       cancelButtonColor: '#d33',
       confirmButtonText: confirmButton,
       cancelButtonText: 'CANCELAR',

@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
   @Input() btnLogin: boolean = true;
   @Input() btnStart: boolean = true;
   @Input() btnLogOut: boolean = false;
-  @Input() btnMenu: boolean = true;
 
   constructor(
     private dialog: MatDialog,

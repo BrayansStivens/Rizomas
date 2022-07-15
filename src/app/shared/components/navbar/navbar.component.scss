@@ -28,7 +28,14 @@ img {
   display: none;
 }
 
-@media (max-width: 950px) {
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: 2px solid;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
   .comencemos {
     display: flex;
     margin-left: auto;
@@ -50,12 +57,42 @@ img {
 
   .tittle {
     margin-bottom: auto;
-    font-size: 1rem;
+    font-size: 1.02rem;
     color: white;
   }
+}
 
-  .tittleResponse {
-    margin-left: -20vh;
-    transform: scale(1.2);
+@media (min-width: 481px) and (max-width: 767px) {
+  .comencemos {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+  .login {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+  .logOut {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+  .tittle {
+    margin-bottom: auto;
+    font-size: 1.5rem;
+    color: white;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tittle {
+    margin-left: auto;
+    margin-bottom: auto;
+    font-size: 2rem;
+    color: white;
   }
 }

@@ -8,6 +8,8 @@ import { UsuariosService } from '../../services/usuarios.service';
 
 import { Role } from '../../interfaces/usuarios';
 import { PaginationType, CellType } from '../../../../shared/components/table/interface/table';
+import { GruposService } from '../../services/grupos.service';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'rizo-usuarios',
@@ -23,8 +25,15 @@ export class UsuariosComponent implements OnInit {
   form!: FormGroup;
   mensajeError!: string;
   mensajeBoton!: string;
+<<<<<<< Updated upstream
   archivo!: Array<any>;
   archivoRuta!: string;
+=======
+  archivoExcel!: any;
+  nameFile!:string;
+  disabledGropu!: boolean;
+  /* archivoRuta!: string; */
+>>>>>>> Stashed changes
 
   roles: Array<Role> = [
     { role: 'Administrador', value: 'administrador' },
@@ -39,18 +48,20 @@ export class UsuariosComponent implements OnInit {
     role:  {label: 'Role'},
     action: {label: "Acciones", type: CellType.ACTIONS}
   };
+  grupos!: Array<any>;
 
   //Constructor
   constructor(
     private formBuilder: FormBuilder,
     private usuariosService: UsuariosService,
     private alertService: AlertsService,
-    private sanitizer: DomSanitizer
-  ) {
+    private gruposService: GruposService,
+    private menuComponent: MenuComponent ) {
     this.createForm();
   }
 
   ngOnInit(): void {
+    this.valueChanges();
     this.fillTable()
   }
 
@@ -67,9 +78,34 @@ export class UsuariosComponent implements OnInit {
           ),
         ],
       ],
+<<<<<<< Updated upstream
       role: [''],
       file: [''],
+=======
+      role: ['', Validators.required],
+      group: [''],
+      file: ['',Validators.pattern('^.*\.(.xlsx)$')],
+>>>>>>> Stashed changes
     });
+  }
+
+  valueChanges():void{
+    let ventana: string;
+    this.menuComponent.ventana.subscribe((response)=>{
+      ventana = response;
+      if(ventana ==="Usuarios"){
+        this.getGrupos();
+      }
+    }) 
+
+    this.form.get('role')?.valueChanges.subscribe((value)=>{
+      if(value === 'estudiante'){
+        this.disabledGropu = true;
+        this.getGrupos()
+      }else{
+        this.disabledGropu = false;
+      }
+    })
   }
 
     //llenado de tabla
@@ -82,12 +118,22 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
+  getGrupos():void{
+    this.gruposService.getGrupos().subscribe((response)=>{
+          this.grupos = response;
+    })
+  }
 
   //creacion de usuarios
   createUser(): void {
     this.loader = true;
     if (this.form.get('file')?.value) {
+<<<<<<< Updated upstream
       this.loader = false;
+=======
+      this.loader = true
+      this.subirArchivo()
+>>>>>>> Stashed changes
     } else if (this.form.valid) {
       const { email, password } = this.form.value;
       const payload = {
@@ -158,10 +204,42 @@ export class UsuariosComponent implements OnInit {
   }
 
   cargarArchivo(event: any) {
+<<<<<<< Updated upstream
     const archivo = event.target.files[0];
     console.log(archivo);
+=======
+    const [ file ] = event.target.files;
+    this.archivoExcel ={
+      fileRaw: file,
+      fileName:file.name
+    }
+    this.form.disable();
+    this.nameFile = file.name;
   }
 
+  subirArchivo(){
+    this.loader = true
+    const formFile = new FormData();
+    formFile.append('Archivo', this.archivoExcel.fileRaw, this.archivoExcel.fileName)
+    this.usuariosService.createByFile(formFile).subscribe(()=>{
+      this.loader=false;
+      this.alertService.mensajeCorrecto(
+              'REGISTRO EXITOSO',
+              'Usuarios creados con exito 😇 ')
+    },()=>{
+      this.loader=false;
+      this.alertService.mensajeError(
+        "REGISTRO NO CREADO",
+        "Ocurrio un error inesperado, vuelve a intentarlo 😢")  
+    })
+>>>>>>> Stashed changes
+  }
+
+  eliminarArchivo():void{
+    this.form.get('file')?.reset();
+    this.archivoExcel = null;
+    this.form.enable();
+  }
   //Control de mensajes HTML
   errorEmail(): string {
     this.mensajeError = '';
@@ -193,4 +271,20 @@ export class UsuariosComponent implements OnInit {
     return this.mensajeError;
   }
 
+<<<<<<< Updated upstream
+=======
+  errorFile():string{
+    this.mensajeError = '';
+    if(this.form.get('file')?.value){
+      if(this.form.get('file')?.hasError('pattern')){
+        this.mensajeError = 'Sólo archivos XLSX'
+      }
+    }
+    return this.mensajeError;
+  }
+
+  limpiar(){
+    this.form.reset()
+  }
+>>>>>>> Stashed changes
 }
