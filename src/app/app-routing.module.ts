@@ -37,15 +37,12 @@ const routes: Routes = [
     },
     canActivate: [AuthGuard],
   },
-<<<<<<< Updated upstream
-=======
   {
     path: 'invitados',
     loadChildren: () =>
       import('./features/mapas/mapas.module').then((m) => m.MapasModule),
   },
   { path: '**', pathMatch: 'full', component: NotFoundComponent },
->>>>>>> Stashed changes
 ];
 
 @NgModule({

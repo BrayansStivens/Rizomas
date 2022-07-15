@@ -79,19 +79,11 @@ export class LoginModalComponent implements OnInit {
   validateRol(): void {
     if (this.loginService.obtenerCampoJWT('EsAdmin')) {
       this.router.navigateByUrl('admin');
-<<<<<<< Updated upstream
-      console.log('si');
-    } else if (
-      this.loginService.obtenerCampoJWT('EsEstudiante') ||
-      this.loginService.obtenerCampoJWT('EsDocente')
-    ) {
-=======
       this.alertService.mensajeCorrecto(
         'BIENVENIDO',
         this.form.get('email')?.value
       );
     } else if (this.loginService.obtenerCampoJWT('EsEstudiante')) {
->>>>>>> Stashed changes
       this.alertService.mensajeCorrecto(
         'BIENVENIDO',
         this.form.get('email')?.value

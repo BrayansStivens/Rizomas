@@ -25,15 +25,10 @@ export class UsuariosComponent implements OnInit {
   form!: FormGroup;
   mensajeError!: string;
   mensajeBoton!: string;
-<<<<<<< Updated upstream
-  archivo!: Array<any>;
-  archivoRuta!: string;
-=======
   archivoExcel!: any;
   nameFile!:string;
   disabledGropu!: boolean;
   /* archivoRuta!: string; */
->>>>>>> Stashed changes
 
   roles: Array<Role> = [
     { role: 'Administrador', value: 'administrador' },
@@ -78,14 +73,9 @@ export class UsuariosComponent implements OnInit {
           ),
         ],
       ],
-<<<<<<< Updated upstream
-      role: [''],
-      file: [''],
-=======
       role: ['', Validators.required],
       group: [''],
       file: ['',Validators.pattern('^.*\.(.xlsx)$')],
->>>>>>> Stashed changes
     });
   }
 
@@ -128,12 +118,8 @@ export class UsuariosComponent implements OnInit {
   createUser(): void {
     this.loader = true;
     if (this.form.get('file')?.value) {
-<<<<<<< Updated upstream
-      this.loader = false;
-=======
       this.loader = true
       this.subirArchivo()
->>>>>>> Stashed changes
     } else if (this.form.valid) {
       const { email, password } = this.form.value;
       const payload = {
@@ -204,10 +190,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   cargarArchivo(event: any) {
-<<<<<<< Updated upstream
-    const archivo = event.target.files[0];
-    console.log(archivo);
-=======
     const [ file ] = event.target.files;
     this.archivoExcel ={
       fileRaw: file,
@@ -232,7 +214,6 @@ export class UsuariosComponent implements OnInit {
         "REGISTRO NO CREADO",
         "Ocurrio un error inesperado, vuelve a intentarlo 😢")  
     })
->>>>>>> Stashed changes
   }
 
   eliminarArchivo():void{
@@ -271,8 +252,6 @@ export class UsuariosComponent implements OnInit {
     return this.mensajeError;
   }
 
-<<<<<<< Updated upstream
-=======
   errorFile():string{
     this.mensajeError = '';
     if(this.form.get('file')?.value){
@@ -286,5 +265,4 @@ export class UsuariosComponent implements OnInit {
   limpiar(){
     this.form.reset()
   }
->>>>>>> Stashed changes
 }
