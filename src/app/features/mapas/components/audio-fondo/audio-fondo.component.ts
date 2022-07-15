@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
 
-
 @Component({
   selector: 'rizo-audio-fondo',
   templateUrl: './audio-fondo.component.html',
@@ -15,7 +14,7 @@ export class AudioFondoComponent implements OnInit {
   ngOnInit(): void {
     this.audio.autoplay = true;
     this.menuComponent.ventana.subscribe((response) => {
-      if (response === 'mujeres' || !response) {
+      if (response === 'mujeres') {
         this.soundUp = false;
         this.audio.pause();
       }
@@ -30,9 +29,5 @@ export class AudioFondoComponent implements OnInit {
       this.soundUp = true;
       this.audio.play();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.audio.pause()
   }
 }

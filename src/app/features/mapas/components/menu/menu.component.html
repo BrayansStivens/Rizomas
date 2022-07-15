@@ -4,7 +4,11 @@
   [btnLogOut]="true"
   [tittle]="'MAPAS'"
 ></rizo-navbar>
-<mat-tab-group mat-align-tabs="center" animationDuration="1500ms">
+<mat-tab-group
+  mat-align-tabs="center"
+  animationDuration="1500ms"
+  (selectedTabChange)="tabChange($event)"
+>
   <mat-tab label="ÁRBOL">
     <rizo-arbol></rizo-arbol>
   </mat-tab>
